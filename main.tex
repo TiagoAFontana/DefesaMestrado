@@ -1,0 +1,282 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[aspectratio=169, xcolor=table, unknownkeysallowed]{beamer}
+
+\mode<presentation> {
+
+\usepackage[utf8]{inputenc}
+% \usepackage[compatibility=false]{caption}
+% \usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage[style=ieee]{biblatex}
+\usepackage{siunitx} % Unidades do sistema internacional
+\usepackage[english]{babel}
+\usepackage[super]{nth}
+\usepackage{booktabs}
+\usetheme{Frankfurt}
+\usefonttheme[onlymath]{serif}
+}
+
+% \usepackage{mathptmx}
+\usepackage{anyfontsize}
+\usepackage{t1enc}
+
+\usepackage{tabularx}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[customcolors]{hf-tikz}
+\usepackage{color, colortbl}
+\usepackage{pgfbaseimage} 
+\usepackage{cancel}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+% \usepackage{subcaption}
+% \usepackage{enumitem}
+\usepackage{wrapfig}
+
+\usepackage{booktabs}
+\usepackage{lscape}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,calc}
+\newcommand{\ntikzmark}[2]{#2\thinspace\tikz[overlay,remember picture,baseline=(#1.base)]{\node[inner sep=0pt] (#1) {};}}
+
+\newcommand{\makebrace}[3]{%
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw [decoration={brace,amplitude=0.5em},decorate]
+        let \p1=(#1), \p2=(#2) in
+        ({max(\x1,\x2)}, {\y1+0.8em}) -- node[right=0.6em] {#3} ({max(\x1,\x2)}, {\y2});
+    \end{tikzpicture}
+}
+\bibliography{referencias}
+
+\bibliography{bib} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Avaliação quantitativa do impacto da organização dos dados no contexto de Physical Design}
+
+\author{Tiago Augusto Fontana \\[1\baselineskip]
+        Orientador: Prof. Dr. José Luís Almada Güntzel } % Your name
+\institute[UFSC] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Universidade Federal de Santa Catarina \\ % Your institution for the title page
+\medskip
+\textit{tiagoaugustofontana@gmail.com} % Your email address
+}
+
+\date{9 de Novembro de 2017} % Date, can be changed to a custom date
+
+%  \titlegraphic{\includegraphics[width=2cm]{img/logo_UFSC.pdf} \hspace*{10cm}~%
+%   \includegraphics[width=2cm]{img/logo_ecl.jpg}
+%   }
+
+
+\definecolor{eclgreen}{RGB}{60, 140, 60}
+\setbeamercolor{subsection in head/foot}{fg=white, bg=white}
+\setbeamercolor{section in head/foot}{fg=white, bg=eclgreen}
+
+\definecolor{myblue}{RGB}{200,200,255}
+\definecolor{myorange}{RGB}{255,190,130}
+
+
+
+\begin{document}
+
+% \setbeamertemplate{enumerate items}[default]
+% \setbeamertemplate{itemize item}{\color{yellow}$\blacksquare$}
+    % \setbeamertemplate{itemize items}[ball] % if you want a ball
+%  \setbeamertemplate{itemize subitem}[square]{\color{yellow}$\blacksquare$} % if you wnat a circle
+
+\setbeamertemplate{title page}
+{
+  \vbox{}
+  \vfill
+  \vspace{-0.5cm}
+  \begingroup
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \end{beamercolorbox}%
+    \vskip1em\par
+    
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+            \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    
+    \vspace{-0.5cm}
+        
+    \begin{columns}[c]
+        \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/logo_UFSC.pdf}
+        \end{figure}
+        
+        \column{0.2\textwidth}
+        
+         \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/ophidian_logo.pdf}
+        \end{figure}
+        
+        \column{0.2\textwidth}
+        
+        % \begin{beamercolorbox}[sep=5pt,center]{date}
+        %     {\small\insertdate}
+        % \end{beamercolorbox}\vskip0.5em
+        
+        \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/logo_ecl.jpg}
+        \end{figure}
+    \end{columns}
+  \endgroup
+  \vfill
+}
+
+
+
+\beamertemplatenavigationsymbolsempty
+
+{
+\setbeamertemplate{headline}{}
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+}
+
+\begin{frame}
+\frametitle{Agenda} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+
+\setbeamercolor{footline}{fg=gray}
+\setbeamerfont{footline}{series=\bfseries}
+
+\setbeamertemplate{footline}[text line]{%
+  \parbox{\linewidth}{\vspace*{-8pt} Tiago A. Fontana \hfill \insertdate  \hfill\insertframenumber}}
+  
+%reduce text vertical margin  
+\addtobeamertemplate{frametitle}{}{\vspace{-0.7cm}}
+\addtobeamertemplate{frametext}{}{\vspace{-0.7cm}}
+
+% \input{acronym.tex}
+
+%-----------------------------------------------------------------------------------------------------------------------------%
+%	PRESENTATION SLIDES
+%-----------------------------------------------------------------------------------------------------------------------------%
+\input{sec/1_introducao}
+\input{sec/2_trabalhos_correlatos}
+\input{sec/3_tecnica_proposta}
+\input{sec/4_resultados_preliminares}
+\input{sec/5_cronograma}
+
+
+%-----------------------------------------------------------------------------------------------------------------------------%
+\section*{}
+{
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}[text line]{}
+
+\begin{frame}
+ \vbox{}
+  \vfill
+    \vspace{-0.5cm}
+  \begingroup
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \end{beamercolorbox}%
+    \vskip1em\par
+    
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \huge{\textbf{Obrigado!}}
+    \end{beamercolorbox}
+    
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \usebeamerfont{author}Tiago Augusto Fontana
+    \end{beamercolorbox}
+    
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+            \usebeamerfont{institute}
+    \end{beamercolorbox}
+        
+\begin{columns}[c]
+        \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/logo_UFSC.pdf}
+        \end{figure}
+        
+        \column{0.2\textwidth}
+        
+         \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/ophidian_logo.pdf}
+        \end{figure}
+        
+        \column{0.2\textwidth}
+        
+        % \begin{beamercolorbox}[sep=5pt,center]{date}
+        %     {\small\insertdate}
+        % \end{beamercolorbox}\vskip0.5em
+        
+        \column{0.25\textwidth}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/logos/logo_ecl.jpg}
+        \end{figure}
+    \end{columns}
+  \endgroup
+  \vfill
+
+\end{frame}
+
+}
+
+%-----------------------------------------------------------------------------------------------------------------------------%
+%	BACKUP SLIDES
+%-----------------------------------------------------------------------------------------------------------------------------%
+\input{sec/6_backup}
+%-----------------------------------------------------------------------------------------------------------------------------%
+
+\end{document}

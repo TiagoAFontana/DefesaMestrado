@@ -1,0 +1,224 @@
+\section*{}
+{
+\setbeamertemplate{footline}[text line]{%
+  \parbox{\linewidth}{\vspace*{-8pt} \hfill \hfill \hfill  \hfill \hfill\insertframenumber}}
+
+% \begin{frame}{}
+%     \begin{itemize}
+%         \item Cache misses evaluated using $PAPI$\footnote{Available in: http://icl.utk.edu/papi/} (Performance Application Programming Interface)
+%         \item Parallel implementation using OpenMP\footnote{Available in: http://www.openmp.org/} and 4 threads
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{}
+    % Backup
+\end{frame}
+
+\begin{frame}{}
+    \begin{table}[]
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{@{}cccc@{}}
+        \toprule
+                                                        & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}} Problem A\\ (chip boundaries) \end{tabular}} & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}} Problem B\\ (HPWL)\end{tabular}} & \multicolumn{1}{c}{\begin{tabular}[c]{@{}c@{}} Problem C\\ (clustering)\end{tabular}}  \\ \midrule
+        \multicolumn{1}{|l|}{Implementação}             & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} \textbf{Tiago} \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} \textbf{Tiago}\\ Renan \end{tabular}}  & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Original OOD: Renan\\ OOD e DOD: \textbf{Tiago} \end{tabular}} \\ \midrule
+        \multicolumn{1}{|l|}{Coleta dos dados}          & \multicolumn{1}{c|}{Sheiny} & \multicolumn{1}{c|}{Sheiny}  & \multicolumn{1}{c|}{Sheiny}  \\ \midrule
+        \multicolumn{1}{|l|}{Análise dos resultados}    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} \textbf{Tiago}\\ Renan \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} \textbf{Tiago}\\ Renan \end{tabular}}  & \multicolumn{1}{c|}{\textbf{Tiago}}  \\ \bottomrule
+        \end{tabular}
+        }
+    \end{table}
+\end{frame}
+
+
+
+
+\begin{frame}{Problema C: Clusterização de elementos}
+    \begin{columns}
+        \column{.54\linewidth}
+            \only<1>{
+                \begin{table}[]
+                    \centering
+                    \begin{tabular}{@{}lcc@{}}
+                    \toprule
+                     & \multicolumn{1}{l}{\# Cache Misses (M)} & \multicolumn{1}{l}{Runtime (ms)} \\ \midrule
+                    OOD-S & 122                                     & 1507                             \\
+                    OOD-P & \ \  93                                      & \ \ 541                              \\
+                    DOD-S & \ \  93                                      & 1394                             \\
+                    DOD-P & \ \  74                                      & \ \ 456                              \\ \bottomrule
+                    \end{tabular}
+                \end{table}
+            }
+            \only<2>{
+                \begin{table}[]
+                    \centering
+                    \begin{tabular}{@{}lcc@{}}
+                    \toprule
+                     & \multicolumn{1}{l}{\# Cache Misses (M)} & \multicolumn{1}{l}{Runtime (ms)} \\ \midrule
+                    \rowcolor[HTML]{FFFE65} OOD-S & 122                                     & 1507                             \\
+                    OOD-P & \ \  93                                      & \ \  541                              \\
+                    \rowcolor[HTML]{FFFE65} DOD-S & \ \  93                                      & 1394                             \\
+                    DOD-P & \ \  74                                      & \ \  456                              \\ \bottomrule
+                    \end{tabular}
+                \end{table}
+            }
+            \only<3>{
+                \begin{table}[]
+                    \centering
+                    \begin{tabular}{@{}lcc@{}}
+                    \toprule
+                     & \multicolumn{1}{l}{\# Cache Misses (M)} & \multicolumn{1}{l}{Runtime (ms)} \\ \midrule
+                    OOD-S & 122                                     & 1507                             \\
+                    \rowcolor[HTML]{FFFE65} OOD-P & \ \  93                                      & \ \  541                              \\
+                    DOD-S & \ \  93                                      & 1394                             \\
+                    \rowcolor[HTML]{FFFE65} DOD-P & \ \  74                                      & \ \  456                              \\ \bottomrule
+                    \end{tabular}
+                \end{table}
+            }
+            \only<4-5>{
+                \begin{table}[]
+                    \centering
+                    \begin{tabular}{@{}lcc@{}}
+                    \toprule
+                     & \multicolumn{1}{l}{\# Cache Misses (M)} & \multicolumn{1}{l}{Runtime (ms)} \\ \midrule
+                    \rowcolor[HTML]{FFFE65} OOD-S & 122                                     & 1507                             \\
+                    OOD-P & \ \  93                                      & \ \  541                              \\
+                    DOD-S & \ \  93                                      & 1394                             \\
+                    \rowcolor[HTML]{FFFE65} DOD-P & \ \  74                                      & \ \  456                              \\ \bottomrule
+                    \end{tabular}
+                \end{table}
+            }
+        \column{.45\linewidth}
+            \only<1>{
+                \begin{itemize}
+                    \item DOD reduced cache misses in both implementations
+                    \item DOD is faster in both implementations
+                \end{itemize}
+            }
+            \only<2>{
+                \begin{itemize}
+                    \item DOD-S vs. OOD-S
+                    \begin{itemize}
+                        \item Cache Misses:
+                        \begin{itemize}
+                            \item Worst: $ 19\% \downarrow $
+                            \item Best: $ 41\% \downarrow $
+                            \item Average: $ 24\% \downarrow $ 
+                        \end{itemize}
+                        \item Runtime:
+                        \begin{itemize}
+                            \item Worst: $ 6\% \downarrow $
+                             \item Best: $ 10\% \downarrow $
+                            \item Average: $ 8\% \downarrow $ 
+                        \end{itemize}
+                    \end{itemize}
+                \end{itemize}
+            }
+            \only<3>{
+                \begin{itemize}
+                    \item DOD-P vs. OOD-P
+                    \begin{itemize}
+                        \item Cache Misses:
+                        \begin{itemize}
+                            \item Worst: $ 17\% \downarrow $
+                            \item Best: $ 57\% \downarrow $
+                            \item Average: $ 25\% \downarrow $
+                        \end{itemize}
+                        \item Runtime:
+                        \begin{itemize}
+                            \item Worst: $ 14\% \downarrow $
+                            \item Best: $ 18\% \downarrow $
+                            \item Average: $ 16\% \downarrow $
+                        \end{itemize}
+                    \end{itemize}
+                \end{itemize}
+            }
+            \only<4-5>{
+                \begin{itemize}
+                    \item DOD-P vs. OOD-S
+                    \begin{itemize}
+                        \item Cache Misses:
+                        \begin{itemize}
+                            \item Worst: $35\% \downarrow $
+                            \item Best: $75\% \downarrow $
+                            \item Average: $42\% \downarrow $
+                        \end{itemize}
+                        % \item Runtime:
+                        % \begin{itemize}
+                        %     \item[\color{$X$}] Not applicable
+                        % \end{itemize}
+                    \end{itemize}
+                \end{itemize}
+            }
+    \end{columns}
+    \begin{center}
+        \only<1-4>{ \color{white}{\textbf{DOD is an adequate way to represent data for register clustering problems.}} }
+        \only<5>{
+            \textbf{DOD is an adequate way to represent data for register clustering problems.}
+        }
+    \end{center}
+\end{frame}
+
+\begin{frame}{Cache-Aware / Cache-Oblivious}
+
+    \pgfdeclareimage[width=0.3\linewidth]{matrizA}{img/backup/multiplicacao_matrix_a.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{matrizB}{img/backup/multiplicacao_matrix_b.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{matrizC}{img/backup/multiplicacao_matrix_c.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{matrizBlocoA}{img/backup/multiplicacao_matrix_bloco_a.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{matrizBlocoB}{img/backup/multiplicacao_matrix_bloco_b.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{matrizBlocoC}{img/backup/multiplicacao_matrix_bloco_c.pdf}
+    
+     \begin{columns}
+        \column{.33\linewidth}
+            Cache-Aware
+            
+            \vspace{0.3cm}
+            \pgfuseimage{matrizA}
+            
+            \vspace{1cm}
+            Cache-Oblivious
+            
+            \vspace{0.3cm}
+            \pgfuseimage{matrizBlocoA}
+        \column{.33\linewidth}
+            \vspace{12pt}
+            
+            \vspace{0.3cm}
+            \pgfuseimage{matrizB}
+            
+            \vspace{1cm}
+            \vspace{12pt}
+            \vspace{0.3cm}
+            \pgfuseimage{matrizBlocoB}
+        \column{.33\linewidth}
+            \vspace{12pt}
+            
+            \vspace{0.3cm}
+            \pgfuseimage{matrizC}
+            
+            \vspace{1cm}
+            \vspace{12pt}
+            \vspace{0.3cm}
+            \pgfuseimage{matrizBlocoC}
+    \end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\setbeamertemplate{footline}[text line]{%
+  \parbox{\linewidth}{\vspace*{-8pt} Tiago A. Fontana \hfill \insertdate  \hfill\insertframenumber}}
+}

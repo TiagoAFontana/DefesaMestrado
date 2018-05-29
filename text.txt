@@ -1,0 +1,18 @@
+Author of the text: Tiago Fontana
+
+
+==== Start Introduction ====
+
+
+Slide 4
+
+Um fluxo de projeto é tipicamente dividido em diversas etapas.
+Esta figura apresenta as principais etapas deste fluxo, onde cada etapa pode ser subdividida em outras.
+Este fluxo inicia com a captura do comportamento do sistema, em um alto nível de abstração (especificação do sistema).
+E é concluído com a fabricação, empacotamento e testes do chip.
+--animação
+Durante este fluxo de projeto, uma das etapas é denominada de síntese física (\textit{Phisical Design}).
+A síntese física é responsável pelo mapeamento dos elementos do circuito para estruturas físicas.
+Nesta etapa, as portas lógicas e os elementos sequenciais da \textit{netlist} são associados a descrições geométricas referenciadas por ``células'', as quais estão disponíveis na biblioteca \textit{standard cells}.
+Após este mapeamento tecnológico, as células são posicionadas, legalizadas e interconectadas. 
+Cada uma dessas fases operam sobre um grande volume de dados, respeitando diversas restrições e realizando possíveis otimizações.

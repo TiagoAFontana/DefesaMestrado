@@ -1,0 +1,393 @@
+\section{Metodologia e Resultados Preliminares}
+\subsection*{}
+
+\begin{frame}{Metodologia}
+    \begin{itemize}
+        \item Avaliar:
+        \begin{itemize}
+            \item Número de \textbf{\textit{Cache Misses}}
+            \item Tempo de execução
+        \end{itemize}
+        \item 3 algoritmos de Physical Design:
+        \begin{itemize}
+            \item Problema A: Verificar limites do chip
+            \item Problema B: Estimar o tamanho das interconexões
+            \item Problema C: Clusterização de elementos
+        \end{itemize}
+        \item Implementações:
+        \begin{itemize}
+            \item Abordagem tradicional: Object-Oriented Design (OOD)
+            \item Abordagem proposta: Data-Oriented Design (DOD) 
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Infraestrutura}
+     \begin{columns}
+        \column{.6\linewidth}
+        
+            \begin{itemize}
+                % \itemsep15pt 
+                \item Ophidian
+                \item ICCAD 2015 CAD Contest: 
+                \begin{itemize}
+                    \item 8 circuitos de tamanhos de \\ \textbf{768m} a \textbf{1.93M} de células
+                \end{itemize}
+                \item Linux workstation com processador Intel\textsuperscript{\textregistered} Core\textsuperscript{\textregistered} i5-4460 @ 3.20~GHz
+                \begin{itemize}
+                    \item 32GB~RAM (DDR3 @ 1600MHz)
+                    \item Memória Cache:
+                        \begin{itemize}
+                            \item L1: 64KB
+                            \item L2: 256KB
+                            \item L3: 6144KB
+                        \end{itemize}
+                \end{itemize}
+                \item 30 repetições para garantir um pequeno intervalo de confiança
+                % \item Código fonte e experimentos disponíveis na Ophidian %\footnote{Disponível em: https://github.com/eclufsc/ophidian}
+                % \item \textbf{Scenario ~A}: check if all circuit cells' positions lie within the circuit's boundaries
+                % In this scenario only one property is necessary for each entity (cell position), so it fully explores the data locality provided by \ac{dod}.
+                % \item \textbf{Scenario ~B}: computing the interconnection wirelength for all circuit nets
+                % This scenario accesses different properties of different entities. Therefore, it cannot efficiently explore the data locality provided by \ac{dod}, since the properties of the pins in a single net may not be contiguous in memory, unless the property array is previously sorted.
+            \end{itemize}
+            
+        \column{.4\linewidth}
+            \pgfdeclareimage[width=\linewidth]{mr1}{img/results/architectureMemoryZeus.pdf}
+            \begin{center}
+                \pgfuseimage<1>{mr1}
+            \end{center}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Problema A: Verificar limites do chip}
+    
+    \pgfdeclareimage[width=0.3\linewidth]{problema}{img/tecnica/problemaA.pdf}
+    \pgfdeclareimage[width=0.27\linewidth]{ood}{img/tecnica/classHierarchyChipBoundariesOOD.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{dod}{img/tecnica/chipBoundariesDOD.pdf}
+
+    \begin{minipage}[c][.3\textheight][c]{1\textwidth}
+        \centering
+        \vspace{1cm}
+        \pgfuseimage<1>{problema}
+    \end{minipage}
+    \begin{minipage}[c][.7\textheight][c]{1\textwidth}
+        \begin{columns}
+            \column{.5\linewidth}
+                \vspace{1cm}
+                \begin{itemize}
+                    \item Object-Oriented Design
+                \end{itemize}
+                \centering
+                \vspace{.5cm}
+                \pgfuseimage<1>{ood}
+                \vspace{1.2cm}
+            \column{.5\linewidth}
+                \vspace{-2.5cm}
+                \begin{itemize}
+                    \item Data-Oriented Design
+                \end{itemize}
+                \vspace{0.5cm}
+                \pgfuseimage<1>{dod}
+        \end{columns}
+    \end{minipage}
+    
+\end{frame}
+
+\begin{frame}{Problema A: Verificar limites do chip}
+
+    \pgfdeclareimage[width=0.5\linewidth]{miss_1}{img/results/miss_problem_A_1.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{miss_2}{img/results/miss_problem_A_2.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_1}{img/results/runtime_problem_A_1.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_2}{img/results/runtime_problem_A_2.pdf}
+
+    \begin{columns}
+        \column{.5\linewidth}
+            \only<1>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_1}
+            }
+            \only<2-4>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_2}
+            }
+        \column{.5\linewidth}
+            \only<3>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_1}
+            }
+            \only<4>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_2}
+            }
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Problema B: Estimar o tamanho das interconexões}
+
+    \pgfdeclareimage[width=0.15\linewidth]{problema}{img/tecnica/problemaB.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{ood}{img/tecnica/classHierarchyOOD.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{dod}{img/tecnica/estimativa_interconection_dod.pdf}
+
+    \begin{minipage}[c][.3\textheight][c]{1\textwidth}
+        \centering
+        \vspace{1.4cm}
+        \pgfuseimage<1>{problema}
+    \end{minipage}
+    \begin{minipage}[c][.7\textheight][c]{1\textwidth}
+        \begin{columns}
+            \column{.5\linewidth}
+                \begin{itemize}
+                    \item Object-Oriented Design
+                \end{itemize}
+                \centering
+                % \vspace{.5cm}
+                \pgfuseimage<1>{ood}
+                % \vspace{1.2cm}
+            \column{.5\linewidth}
+                \begin{itemize}
+                    \item Data-Oriented Design
+                \end{itemize}
+                \pgfuseimage<1>{dod}
+                \vspace{.5cm}
+        \end{columns}
+    \end{minipage}
+        
+\end{frame}
+
+\begin{frame}{Problema B: Estimar o tamanho das interconexões}
+
+    \pgfdeclareimage[width=0.5\linewidth]{miss_1}{img/results/miss_problem_B_1.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{miss_2}{img/results/miss_problem_B_2.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_1}{img/results/runtime_problem_B_1.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_2}{img/results/runtime_problem_B_2.pdf}
+
+    \begin{columns}
+        \column{.5\linewidth}
+            \only<1>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_1}
+            }
+            \only<2-4>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_2}
+            }
+        \column{.5\linewidth}
+            \only<3>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_1}
+            }
+            \only<4>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_2}
+            }
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Problema B: Estimar o tamanho das interconexões}
+
+    \pgfdeclareimage[width=0.75\linewidth]{future}{img/results/future_work_problem_B.pdf}
+
+    \begin{itemize}
+        \item \textbf{Possível otimização}:
+        \begin{itemize}
+            \item Agrupar a posições dos pinos
+        \end{itemize}
+    \end{itemize}
+    
+    \centering
+    \pgfuseimage<1>{future}
+    
+\end{frame}
+
+
+\begin{frame}{Exemplo HPWL com agrupamento dos pinos}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl0}{img/results/hpwl/hpwl_anim_0.pdf}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl1}{img/results/hpwl/hpwl_anim_1.pdf}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl2}{img/results/hpwl/hpwl_anim_2.pdf}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl3}{img/results/hpwl/hpwl_anim_3.pdf}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl4}{img/results/hpwl/hpwl_anim_4.pdf}
+    \pgfdeclareimage[width=0.8\linewidth]{hpwl5}{img/results/hpwl/hpwl_anim_5.pdf}
+    \centering
+    \vspace{0.5cm}
+
+    \pgfuseimage<1>{hpwl0}
+    \pgfuseimage<2>{hpwl1}
+    \pgfuseimage<3>{hpwl2}
+    \pgfuseimage<4>{hpwl3}
+    \pgfuseimage<5>{hpwl4}
+    \pgfuseimage<6>{hpwl5}
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        % \node[rectangle, draw, minimum width = 2.cm, minimum height = 1.cm, color=red, rounded corners, very thick](window)at(1.45,2.55){};
+        \node (window)at(5.5,6.5){\color{red}{\textbf{Ordem original}}};
+        \node (window1)at(5.5,2.9){\color{green}{\textbf{Agrupando pinos}}};
+        \node (window2)at(5.5,2.5){\color{green}{\textbf{de uma mesma net}}};
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Problema C: Clusterização de elementos}
+
+    \pgfdeclareimage[width=0.2\linewidth]{problema}{img/tecnica/problemaC.pdf}
+    \pgfdeclareimage[width=0.3\linewidth]{ood}{img/tecnica/registerClusterclassOOD.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{dod}{img/tecnica/propertiesDOD.pdf}
+
+    % \begin{minipage}[c][.3\textheight][c]{1\textwidth}
+    %     \centering
+    %     \vspace{1.4cm}
+    %     \pgfuseimage<1>{problema}
+    % \end{minipage}
+    % \begin{minipage}[c][.7\textheight][c]{1\textwidth}
+        \begin{columns}
+            \column{.5\linewidth}
+                \centering
+                % \vspace{1.4cm}
+                \pgfuseimage<1>{problema}
+                \vspace{.5cm}
+                \begin{itemize}
+                    \item Object-Oriented Design
+                \end{itemize}
+                % \centering
+                % \vspace{.5cm}
+                \pgfuseimage<1>{ood}
+                % \vspace{1.2cm}
+            \column{.5\linewidth}
+                \begin{itemize}
+                    \item Data-Oriented Design
+                \end{itemize}
+                \pgfuseimage<1>{dod}
+        \end{columns}
+    % \end{minipage}
+   
+    % \begin{columns}
+    %     \column{.5\linewidth}
+    %         \begin{itemize}
+    %             \item Object-Oriented Design
+    %         \end{itemize}
+    %         \pgfuseimage<1>{ood}
+    %     \column{.5\linewidth}
+    %         \begin{itemize}
+    %             \item Data-Oriented Design
+    %         \end{itemize}
+    %         \pgfuseimage<1>{dod}
+    % \end{columns}
+
+\end{frame}
+
+\begin{frame}{Problema C: Clusterização de elementos }
+
+    \pgfdeclareimage[width=0.5\linewidth]{miss_1}{img/results/miss_problem_C_1_sequential.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{miss_2}{img/results/miss_problem_C_2_sequential.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_1}{img/results/runtime_problem_C_1_sequential.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_2}{img/results/runtime_problem_C_2_sequential.pdf}
+
+    \begin{itemize}
+        \item Execução \textbf{Sequencial}
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \begin{columns}
+        \column{.5\linewidth}
+            \only<1>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_1}
+            }
+            \only<2-4>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_2}
+            }
+        \column{.5\linewidth}
+            \only<3>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_1}
+            }
+            \only<4>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_2}
+            }
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Problema C: Clusterização de elementos }
+
+    \pgfdeclareimage[width=0.5\linewidth]{miss_1}{img/results/miss_problem_C_1_parallel.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{miss_2}{img/results/miss_problem_C_2_parallel.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_1}{img/results/runtime_problem_C_1_parallel.pdf}
+    \pgfdeclareimage[width=0.5\linewidth]{runtime_2}{img/results/runtime_problem_C_2_parallel.pdf}
+
+    \begin{itemize}
+        \item Execução \textbf{Paralela}
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \begin{columns}
+        \column{.5\linewidth}
+            \only<1>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_1}
+            }
+            \only<2-4>{
+                \centering
+                Cache Misses
+                
+                \vspace{0.5cm}
+                \pgfuseimage{miss_2}
+            }
+        \column{.5\linewidth}
+            \only<3>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_1}
+            }
+            \only<4>{
+                \centering
+                Tempo de execução
+                
+                \vspace{0.5cm}
+                \pgfuseimage{runtime_2}
+            }
+    \end{columns}
+\end{frame}
+
